@@ -3,7 +3,12 @@ import { CSS } from "@dnd-kit/utilities";
 import { UniqueIdentifier } from "@dnd-kit/core";
 import Item from "./Item";
 
-const SortableItem = ({ id }: { id: UniqueIdentifier }) => {
+interface SortableItemProps {
+  id: UniqueIdentifier;
+  data: string; // この型は `data` の内容に応じて変更してください
+}
+
+const SortableItem: React.FC<SortableItemProps> = ({ id, data }) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id });
 
@@ -14,9 +19,10 @@ const SortableItem = ({ id }: { id: UniqueIdentifier }) => {
       {...attributes}
       {...listeners}
     >
-      <Item id={id} />
+      <Item id={id} data={data} />
     </div>
   );
 };
 
 export default SortableItem;
+

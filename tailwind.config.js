@@ -6,7 +6,12 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontSize: {
+        xss: '0.55rem' // 例として0.65remを設定
+      }
+    },
+    
     container: {
       center: true,
       padding: {

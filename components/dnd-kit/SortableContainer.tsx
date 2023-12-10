@@ -2,28 +2,36 @@ import { useDroppable } from "@dnd-kit/core";
 import { rectSortingStrategy, SortableContext } from "@dnd-kit/sortable";
 import SortableItem from "./SortableItem";
 
-const SortableContainer = ({
+interface Item {
+  id: string;
+  data: string;
+}
+
+interface SortableContainerProps {
+  id: string;
+  items: Item[];
+  label: string;
+}
+
+const SortableContainer: React.FC<SortableContainerProps> = ({
   id,
   items,
   label,
-}: {
-  id: string;
-  items: string[];
-  label: string;
 }) => {
   const { setNodeRef } = useDroppable({
     id,
   });
+
   return (
-    <div className="w-[calc(33%-5px)]">
+    <div className="">
       <h3 className="text-xl font-bold text-center">{label}</h3>
-      <SortableContext id={id} items={items} strategy={rectSortingStrategy}>
+      <SortableContext id={id} items={items.map(item => item.id)} strategy={rectSortingStrategy}>
         <div
           ref={setNodeRef}
-          className="w-full border-2 border-gray-500/75 p-5 mt-2 rounded-md"
+          className="w-full border-2 border-gray-500/75 p-3 mt-2 rounded-md"
         >
-          {items.map((id: string) => (
-            <SortableItem key={id} id={id} />
+          {items.map((item) => (
+            <SortableItem key={item.id} id={item.id} data={item.data} />
           ))}
         </div>
       </SortableContext>
