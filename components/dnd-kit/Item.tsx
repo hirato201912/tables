@@ -7,10 +7,11 @@ interface ItemProps {
 
 const Item: React.FC<ItemProps> = ({ id, data }) => {
   return (
-    <div className="w-full h-[50px] flex flex-col items-center justify-center my-2.5 border border-black rounded-lg text-xss p-2">
+    <div className="w-full h-[50px] flex flex-col items-center justify-center my-2.5 border border-black rounded-lg text-white bg-blue-500 text-xss p-2">
     <div>{id}</div>
     <div>{data}</div>
   </div>
+  
   
   );
 };

@@ -136,38 +136,40 @@ const Contaienr = () => {
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
     //ドラッグしたリソースのid
-    const id = active.id.toString();
+    const activeId = active.id;
     //ドロップした場所にあったリソースのid
     const overId = over?.id;
-
+  
     if (!overId) return;
 
-    // ドラッグ、ドロップ時のコンテナ取得
-    // container1,container2,container3,container4のいずれかを持つ
-    const activeContainer = findContainer(id);
-    const overContainer = findContainer(over?.id);
+  // ドラッグ、ドロップ時のコンテナ取得
+  const activeContainer = findContainer(activeId);
+  const overContainer = findContainer(overId);
 
-    if (
-      !activeContainer ||
-      !overContainer ||
-      activeContainer !== overContainer
-    ) {
-      return;
-    }
+  if (!activeContainer || !overContainer) return;
 
-    // 配列のインデックス取得
-    const activeIndex = items[activeContainer].indexOf(id);
-    const overIndex = items[overContainer].indexOf(overId.toString());
+ // アクティブなアイテムとインデックスを取得
+  const activeItem = items[activeContainer].find(item => item.id === activeId);
+  const activeIndex = items[activeContainer].findIndex(item => item.id === activeId);
+  const overIndex = items[overContainer].findIndex(item => item.id === overId);
 
-    if (activeIndex !== overIndex) {
-      setItems((items) => ({
-        ...items,
-        [overContainer]: arrayMove(
-          items[overContainer],
-          activeIndex,
-          overIndex
-        ),
-      }));
+  if (activeContainer === overContainer) {
+    // 同じコンテナ内での移動
+    setItems(prev => ({
+      ...prev,
+      [activeContainer]: arrayMove(prev[activeContainer], activeIndex, overIndex)
+    }));
+  } else {
+      // 異なるコンテナ間での移動
+    setItems(prev => ({
+      ...prev,
+      [activeContainer]: prev[activeContainer].filter(item => item.id !== activeId),
+      [overContainer]: [
+        ...prev[overContainer].slice(0, overIndex),
+        activeItem,
+        ...prev[overContainer].slice(overIndex)
+      ]
+    }));
     }
     setActiveId(undefined);
   };
@@ -187,14 +189,15 @@ const Contaienr = () => {
   {/* 各グループのコンテナ */}
  {/* 最初のグループ */}
  <div className="flex flex-col items-center mr-4">
- <span className="text-lg font-bold">Group 9999999</span>
+ <span className="text-lg">Group 1</span>
     <div className="flex flex-row">
       <SortableContainer id="container1" items={items.container1} label="1" />
       <SortableContainer id="container2" items={items.container2} label="2" />
       <SortableContainer id="container3" items={items.container3} label="3" />
+      <SortableContainer id="container4" items={items.container4} label="4" />
     </div>
-    <span className="text-lg font-bold ">Group 1</span>
-    <span className="text-lg font-bold ">AB</span>
+    <span className="text-lg  ">Group 1</span>
+    <span className="text-lg  ">A-B</span>
   </div>
 
   {/* 二番目のグループ */}
