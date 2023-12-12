@@ -1,19 +1,10 @@
 import { UniqueIdentifier } from "@dnd-kit/core";
 
-interface ItemProps {
-  id: UniqueIdentifier;
-  data: string; // この型は `data` の内容に応じて変更してください
-}
-
-const Item: React.FC<ItemProps> = ({ id, data }) => {
+const Item = ({ id,data }: { id: UniqueIdentifier }) => {
   return (
-    <div className="w-full h-[50px] flex flex-col items-center justify-center my-2.5 border border-black rounded-lg text-white bg-blue-500 text-xss p-2">
-    <div>{id}</div>
-    <div>{data}</div>
-  </div>
-  
-  
+    <div className="w-full h-[50px] flex items-center justify-center my-2.5 border border-black rounded-lg">
+      {id}{data}
+    </div>
   );
 };
-
 export default Item;

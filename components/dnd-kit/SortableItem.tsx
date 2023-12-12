@@ -9,8 +9,7 @@ interface SortableItemProps {
 }
 
 const SortableItem: React.FC<SortableItemProps> = ({ id, data }) => {
-  const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id });
+  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
 
   return (
     <div
@@ -23,6 +22,7 @@ const SortableItem: React.FC<SortableItemProps> = ({ id, data }) => {
     </div>
   );
 };
+
 
 export default SortableItem;
 
