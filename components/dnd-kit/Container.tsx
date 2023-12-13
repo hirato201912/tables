@@ -25,20 +25,73 @@ const Contaienr = () => {
  
   const initialItems = {
     container1: [
-      { id: "A", data: "データ1" },
-      { id: "B", data: "データ2" },
-      { id: "C", data: "データ3" }
-    ],
-    container2: [
-      { id: "D", data: "データ4" },
-      { id: "E", data: "データ5" },
-      { id: "F", data: "データ6" }
-    ],
-    container3: [
-      { id: "G", data: "データ7" },
-      { id: "H", data: "データ8" },
-      { id: "I", data: "データ9" }
-    ],
+      {
+        id: "S1001",
+        data: "ユウキ",
+        schoolName: "竜中",
+        grade: "1年",
+        subject: "数学"
+      },
+      {
+        id: "S1002",
+        data: "ユウキ",
+        schoolName: "竜中",
+        grade: "1年",
+        subject: "英語"
+      },
+      {
+        id: "S1003",
+        data: "ユウキ",
+        schoolName: "竜中",
+        grade: "2年",
+        subject: "英語"
+      }, ],
+      container2: [
+        {
+          id: "S1004",
+        data: "ユウキ",
+          schoolName: "竜中",
+          grade: "1年",
+          subject: "数学"
+        },
+        {
+          id: "S1005",
+          data: "ユウキ",
+          schoolName: "竜中",
+          grade: "1年",
+          subject: "英語"
+        },
+        {
+          id: "S1006",
+          data: "ユウキ",
+          schoolName: "竜中",
+          grade: "2年",
+          subject: "英語"
+        }
+      ],
+      container3: [
+        {
+          id: "S1007",
+          data: "ユウキ",
+          schoolName: "竜中",
+          grade: "1年",
+          subject: "数学"
+        },
+        {
+          id: "S1008",
+          data: "ユウキ",
+          schoolName: "竜中",
+          grade: "1年",
+          subject: "英語"
+        },
+        {
+          id: "S1009",
+          data: "ユウキ",
+          schoolName: "竜中",
+          grade: "2年",
+          subject: "英語"
+        }
+      ],
     container4: []
   };
 
