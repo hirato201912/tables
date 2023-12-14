@@ -8,7 +8,7 @@ interface SortableItemProps {
   data: string; // この型は `data` の内容に応じて変更してください
 }
 
-const SortableItem: React.FC<SortableItemProps> = ({ id, data }) => {
+const SortableItem: React.FC<SortableItemProps> = ({ id, data,schoolName,grade,subject }) => {
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
 
   return (
@@ -18,7 +18,7 @@ const SortableItem: React.FC<SortableItemProps> = ({ id, data }) => {
       {...attributes}
       {...listeners}
     >
-      <Item id={id} data={data} />
+      <Item  id={id} data={data} schoolName={schoolName} grade={grade} subject={subject} />
     </div>
   );
 };

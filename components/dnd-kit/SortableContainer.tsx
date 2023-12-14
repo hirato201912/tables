@@ -28,7 +28,7 @@ const SortableContainer: React.FC<SortableContainerProps> = ({
       <SortableContext id={id} items={items.map(item => item.id)} strategy={rectSortingStrategy}>
   <div ref={setNodeRef} className="w-full border-2 border-gray-500/75 p-2 mt-2 rounded-md">
     {items.map((item) => (
-      <SortableItem key={item.id} id={item.id} data={item.data} />
+      <SortableItem key={item.id} id={item.id} data={item.data} schoolName={item.schoolName} grade={item.grade} subject={item.subject} />
     ))}
   </div>
 </SortableContext>
