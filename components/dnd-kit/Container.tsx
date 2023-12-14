@@ -15,10 +15,18 @@ import {
 import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 import SortableContainer from "./SortableContainer";
 import Item from "./Item";
+import StudentDataGenerator from "./StudentDataGenerator";
 
-interface Items {
-  [key: string]: { id: string; data: string; }[];
+interface Item {
+  id: string;
+  student_id: number;
+  name: string;
+  schoolName: string;
+  grade: string;
+  subject_1: string;
+  subject_2: string;
 }
+
 
 const Contaienr = () => {
   // ドラッグ&ドロップでソート可能なリスト
@@ -27,73 +35,103 @@ const Contaienr = () => {
     container1: [
       {
         id: "S1001",
-        data: "ユウキ",
+        student_id: "001",
+        name: "山田ユウキ",
         schoolName: "竜中",
         grade: "1年",
-        subject: "数学"
+        subject_1: "数",
+        subject_2: "理"
       },
       {
         id: "S1002",
-        data: "ユウキ",
+        student_id: "002",
+        name: "中村サトシ",
         schoolName: "竜中",
         grade: "1年",
-        subject: "英語"
+        subject_1: "英",
+        subject_2: "社"
       },
       {
         id: "S1003",
-        data: "ユウキ",
+        student_id: "003",
+        name: "小林アキラ",
         schoolName: "竜中",
         grade: "2年",
-        subject: "英語"
-      }, ],
-      container2: [
-        {
-          id: "S1004",
-        data: "ユウキ",
-          schoolName: "竜中",
-          grade: "1年",
-          subject: "数学"
-        },
-        {
-          id: "S1005",
-          data: "ユウキ",
-          schoolName: "竜中",
-          grade: "1年",
-          subject: "英語"
-        },
-        {
-          id: "S1006",
-          data: "ユウキ",
-          schoolName: "竜中",
-          grade: "2年",
-          subject: "英語"
-        }
-      ],
-      container3: [
-        {
-          id: "S1007",
-          data: "ユウキ",
-          schoolName: "竜中",
-          grade: "1年",
-          subject: "数学"
-        },
-        {
-          id: "S1008",
-          data: "ユウキ",
-          schoolName: "竜中",
-          grade: "1年",
-          subject: "英語"
-        },
-        {
-          id: "S1009",
-          data: "ユウキ",
-          schoolName: "竜中",
-          grade: "2年",
-          subject: "英語"
-        }
-      ],
-    container4: []
+        subject_1: "体",
+        subject_2: "音"
+      }
+    ],
+    container2: [
+      {
+        id: "S2001",
+        student_id: "001",
+        name: "佐藤タカヒロ",
+        schoolName: "竜中",
+        grade: "1年",
+        subject_1: "社",
+        subject_2: "体"
+      },
+      {
+        id: "S2002",
+        student_id: "002",
+        name: "鈴木ハルカ",
+        schoolName: "竜中",
+        grade: "1年",
+        subject_1: "理",
+        subject_2: "美"
+      },
+      {
+        id: "S2003",
+        student_id: "003",
+        name: "田中リョウタ",
+        schoolName: "竜中",
+        grade: "2年",
+        subject_1: "数",
+        subject_2: "英"
+      }
+    ],
+    container3: [
+      {
+        id: "S3001",
+        student_id: "001",
+        name: "伊藤ユウマ",
+        schoolName: "竜中",
+        grade: "1年",
+        subject_1: "音",
+        subject_2: "歴"
+      },
+      {
+        id: "S3002",
+        student_id: "002",
+        name: "渡辺ミユキ",
+        schoolName: "竜中",
+        grade: "1年",
+        subject_1: "国",
+        subject_2: "地"
+      },
+      {
+        id: "S3003",
+        student_id: "003",
+        name: "中村アキラ",
+        schoolName: "竜中",
+        grade: "2年",
+        subject_1: "体",
+        subject_2: "数"
+      }
+    ],
+    container4: [] 
   };
+
+  const handleAddStudent = (newStudent) => {
+    setItems(prev => {
+      // 新しい生徒を適切なコンテナ（例えば container4）に追加
+      return {
+        ...prev,
+        container4: [...prev.container4, newStudent]
+      };
+    });
+  };
+  
 
    const [items, setItems] = useState<Items>(initialItems);
   
@@ -229,6 +267,7 @@ const Contaienr = () => {
 
   return (
     <div className="flex flex-row mx-auto">
+
       <DndContext
         sensors={sensors}
         collisionDetection={closestCorners}
@@ -301,10 +340,12 @@ const Contaienr = () => {
 
 <div className="flex flex-row  mb-4 border-gray-300 rounded-md bg-blue-100">
    {/* 日にちと曜日 */}
-   <div className="flex flex-col items-center justify-center mr-8 p-4 border border-gray-300 shadow-lg rounded-md bg-white w-24 h-24 mt-20">
-    <span className="text-lg font-semibold">10/05</span> {/* 日にち */}
-    <span className="text-xl font-bold text-gray-600">月</span> {/* 曜日 */}
-  </div>
+   <div className="student-data-generator">
+  <StudentDataGenerator onStudentCreate={handleAddStudent} />
+</div>
+
+
+
 
   {/* <div className="flex flex-col items-center mr-4">
       <span className="text-lg font-bold">Group 5</span>
@@ -334,11 +375,13 @@ const Contaienr = () => {
 
 
       </div>
+      
 
       {/* DragOverlay */}
       <DragOverlay>{activeId ? <Item id={activeId} /> : null}</DragOverlay>
     </DndContext>
     </div>
+    
   );
 };
 
