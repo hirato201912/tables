@@ -93,7 +93,7 @@ const Contaienr = () => {
     container3: [
       {
         id: "S3001",
-        student_id: "001",
+        student_id: "004",
         name: "伊藤ユウマ",
         schoolName: "竜中",
         grade: "1年",
@@ -102,7 +102,7 @@ const Contaienr = () => {
       },
       {
         id: "S3002",
-        student_id: "002",
+        student_id: "005",
         name: "渡辺ミユキ",
         schoolName: "竜中",
         grade: "1年",
@@ -111,7 +111,7 @@ const Contaienr = () => {
       },
       {
         id: "S3003",
-        student_id: "003",
+        student_id: "006",
         name: "中村アキラ",
         schoolName: "竜中",
         grade: "2年",
@@ -119,7 +119,36 @@ const Contaienr = () => {
         subject_2: "数"
       }
     ],
-    container4: [] 
+    container4: [
+      {
+        id: "S4001",
+        student_id: "007",
+        name: "伊藤ユウマ",
+        schoolName: "竜中",
+        grade: "1年",
+        subject_1: "音",
+        subject_2: "歴"
+      },
+      {
+        id: "S4002",
+        student_id: "008",
+        name: "渡辺ミユキ",
+        schoolName: "竜中",
+        grade: "1年",
+        subject_1: "国",
+        subject_2: "地"
+      },
+      {
+        id: "S4003",
+        student_id: "009",
+        name: "中村アキラ",
+        schoolName: "竜中",
+        grade: "2年",
+        subject_1: "体",
+        subject_2: "数"
+      }
+    ],
+    container5: [] 
   };
 
   const handleAddStudent = (newStudent) => {
@@ -127,7 +156,7 @@ const Contaienr = () => {
       // 新しい生徒を適切なコンテナ（例えば container4）に追加
       return {
         ...prev,
-        container4: [...prev.container4, newStudent]
+        container5: [...prev.container5, newStudent]
       };
     });
   };
@@ -280,17 +309,83 @@ const Contaienr = () => {
 <div className="flex flex-row  mt-5 mb-4 border-gray-300 rounded-md bg-red-100">
   {/* 各グループのコンテナ */}
  {/* 最初のグループ */}
- <div className="flex flex-col items-center mr-4">
- <span className="text-lg">Group 1</span>
-    <div className="flex flex-row">
-      <SortableContainer id="container1" items={items.container1} label="1" />
-      <SortableContainer id="container2" items={items.container2} label="2" />
-      <SortableContainer id="container3" items={items.container3} label="3" />
-      <SortableContainer id="container4" items={items.container4} label="4" />
+ <div className="flex flex-col items-center">
+ <span className="text-lg">Teacher 1</span>
+
+  {/* 教師の名前とコンテナを包含する親要素 */}
+  <div className="flex flex-row justify-center items-end">
+    {/* 教師の名前を表示する要素と、コンテナを含む子要素 */}
+    <div className="flex flex-col items-center mx-0">
+    
+      <SortableContainer id="container1" items={items.container1} label="A" />
     </div>
-    <span className="text-lg  ">Group 1</span>
-    <span className="text-lg  ">A-B</span>
+    <div className="flex flex-col items-center mx-0">
+  
+      <SortableContainer id="container2" items={items.container2} label="B" />
+    </div>
   </div>
+  {/* その他のコンテナや要素 */}
+  <span className="text-lg">Teacher 1</span>
+
+</div>
+
+
+
+<div className="flex flex-col items-center">
+ <span className="text-lg">Teacher 1</span>
+
+  {/* 教師の名前とコンテナを包含する親要素 */}
+  <div className="flex flex-row justify-center items-end">
+    {/* 教師の名前を表示する要素と、コンテナを含む子要素 */}
+    <div className="flex flex-col items-center mx-0">
+    <div className="ml-3">
+      <SortableContainer id="container3" items={items.container3} label="C" />
+    </div>
+    </div>
+    <div className="flex flex-col items-center mx-0">
+  
+      <SortableContainer id="container4" items={items.container4} label="D" />
+    </div>
+  </div>
+  {/* その他のコンテナや要素 */}
+  <span className="text-lg">Teacher 1</span>
+
+</div>
+
+
+
+
+
+<div className="flex flex-col items-center">
+ <span className="text-lg">Teacher 1</span>
+
+  {/* 教師の名前とコンテナを包含する親要素 */}
+  <div className="flex flex-row justify-center items-end">
+    {/* 教師の名前を表示する要素と、コンテナを含む子要素 */}
+    <div className="flex flex-col items-center mx-0">
+    <div className="ml-3">
+      {/* <SortableContainer id="container3" items={items.container3} label="C" /> */}
+    </div>
+    </div>
+    <div className="flex flex-col items-center mx-0">
+  
+      <SortableContainer id="container5" items={items.container5} label="E" />
+    </div>
+  </div>
+  {/* その他のコンテナや要素 */}
+  <span className="text-lg">Teacher 1</span>
+
+</div>
+
+
+
+
+
+
+
+
+
+
 
   {/* 二番目のグループ */}
   {/* <div className="flex flex-col items-center mr-4">
@@ -343,6 +438,7 @@ const Contaienr = () => {
    <div className="student-data-generator">
   <StudentDataGenerator onStudentCreate={handleAddStudent} />
 </div>
+
 
 
 
