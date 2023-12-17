@@ -306,8 +306,13 @@ const Contaienr = () => {
       >
         <div>
        {/* 上部のコンテナグループ */}
+
+
 <div className="flex flex-row  mt-5 mb-4 border-gray-300 rounded-md bg-red-100">
   {/* 各グループのコンテナ */}
+
+
+
  {/* 最初のグループ */}
  <div className="flex flex-col items-center">
  <span className="text-lg">Teacher 1</span>
@@ -443,16 +448,33 @@ const Contaienr = () => {
 
 
 
-  {/* <div className="flex flex-col items-center mr-4">
-      <span className="text-lg font-bold">Group 5</span>
-  <div className="flex flex-row mr-3">
-    <SortableContainer id="container11" items={items.container11} label="Container 11" />
-    <SortableContainer id="container12" items={items.container12} label="Container 12" />
-    <SortableContainer id="container13" items={items.container13} label="Container 13" />
+
+
+<div className="flex flex-col items-center">
+ <span className="text-lg">Teacher 1</span>
+
+  {/* 教師の名前とコンテナを包含する親要素 */}
+  <div className="flex flex-row justify-center items-end">
+    {/* 教師の名前を表示する要素と、コンテナを含む子要素 */}
+    <div className="flex flex-col items-center mx-0">
+    <div className="ml-3">
+      <SortableContainer id="container3" items={items.container3} label="C" />
+    </div>
+    </div>
+    <div className="flex flex-col items-center mx-0">
+  
+      <SortableContainer id="container4" items={items.container4} label="D" />
+    </div>
+    <div className="flex flex-col items-center mx-0">
+  
+      <SortableContainer id="container4" items={items.container4} label="D" />
+    </div>
   </div>
-  <span className="text-lg font-bold">Group 5</span>
-  <span className="text-lg font-bold ">2階B教室</span>
-    </div> */}
+  {/* その他のコンテナや要素 */}
+  <span className="text-lg">Teacher 1</span>
+
+</div>
+
 
     
   {/* <div className="flex flex-col items-center mr-4">
