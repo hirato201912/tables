@@ -1,19 +1,25 @@
-const TeacherSelectInput = ({ selectedTeacherId, onChange, teachers, placeholder }) => {
+const TeacherSelectInput = ({ selectedTeacherId, setSelectedTeacherId, teachers, positionLabel, updateTeacherName }) =>  {
+    const handleChange = (e) => {
+      const newTeacherId = e.target.value;
+      setSelectedTeacherId(newTeacherId);
+      // ここでデータベースを更新する関数を呼び出す
+      updateTeacherName(positionLabel, newTeacherId);
+    };
+  
     return (
       <select
-        className="text-lg border border-gray-300 rounded p-1 w-40" // 幅を制限
         value={selectedTeacherId}
-        onChange={onChange}
+        onChange={handleChange}
+        className="text-lg border border-gray-300 rounded p-1 w-40"
       >
-        <option value="">{placeholder}</option>
+        <option value="">講師を選択</option>
         {teachers.map((teacher) => (
-          <option key={teacher.id} value={teacher.id}>
-            {teacher.name}
-          </option>
+          <option key={teacher.id} value={teacher.id}>{teacher.name}</option>
         ))}
       </select>
     );
   };
+  
   
   export default TeacherSelectInput;
   

@@ -32,8 +32,9 @@ interface Item {
 
 const Contaienr = () => {
 
-  const [selectedTeacherId1, setSelectedTeacherId1] = useState('');
+  const [selectedTeacherIds, setSelectedTeacherIds] = useState('');
   const [teachers, setTeachers] = useState([]);
+
 
   const [teacherPositions, setTeacherPositions] = useState({});
 
@@ -71,23 +72,22 @@ const Contaienr = () => {
   const [teacherName12, setTeacherName12] = useState('');
   const [teacherName13, setTeacherName13] = useState('');
   const [teacherName14, setTeacherName14] = useState('');
- 
+  useEffect(() => {
+    const fetchTeachers = async () => {
+      const response = await fetch('http://localhost/fetch_teachers.php');
+      const data = await response.json();
+      setTeachers(data);
+      // 各セレクトボックスの初期値を設定
+      const initialSelections = {};
+      data.forEach(teacher => {
+        initialSelections[teacher.id] = teacher.id; // 例：{ 1: 1, 2: 2, ... }
+      });
+      setSelectedTeacherIds(initialSelections);
+    };
 
-// 講師の一覧を取得する関数
-const fetchTeachers = async () => {
-  try {
-    const response = await fetch('http://localhost/fetch_teachers.php');
-    const data = await response.json();
-    setTeachers(data);
-  } catch (error) {
-    console.error('Error fetching teachers:', error);
-  }
-};
+    fetchTeachers();
+  }, []);
 
-// コンポーネントのマウント時に講師の一覧を取得
-useEffect(() => {
-  fetchTeachers();
-}, []);
 
 
   // データをフェッチする関数
@@ -182,7 +182,7 @@ useEffect(() => {
   }, []);
 
 
-  const updateTeacherName = async (positionLabel, name) => {
+  const updateTeacherName = async (positionLabel, teacherId) => {
     try {
       await fetch('http://localhost/update_teacher_name.php', {
         method: 'POST',
@@ -191,7 +191,7 @@ useEffect(() => {
         },
         body: JSON.stringify({
           positionLabel: positionLabel,
-          name: name
+          teacherId: teacherId
         })
       });
     } catch (error) {
@@ -383,6 +383,11 @@ const handleDragEnd = async (event: DragEndEvent) => {
     <div className="flex flex-row mx-auto">
 
 
+
+
+   
+
+
       <DndContext
         sensors={sensors}
         collisionDetection={closestCorners}
@@ -401,14 +406,13 @@ const handleDragEnd = async (event: DragEndEvent) => {
 
  {/* 最初のグループ */}
  <div className="flex flex-col items-center">
- <TeacherNameInput
-      value={teacherName1}
-      onChange={(e) => {
-        setTeacherName1(e.target.value);
-        updateTeacherName('teacherName1', e.target.value);
-      }}
-      placeholder="講師名1"
-    />
+ <TeacherSelectInput
+        selectedTeacherId={teacherName1}
+        setSelectedTeacherId={setTeacherName1}
+        teachers={teachers}
+        positionLabel="teacherName1"
+        updateTeacherName={updateTeacherName}
+      />
 
   {/* 教師の名前とコンテナを包含する親要素 */}
   <div className="flex flex-row justify-center items-end">
