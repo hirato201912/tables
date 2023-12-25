@@ -104,6 +104,7 @@ const Contaienr = () => {
         const container = student.container || 'container16'; // コンテナが未割り当ての場合は 'container16' に入れる
         if (!acc[container]) {
           acc[container] = [];
+        
         }
         acc[container].push(student);
         return acc;
