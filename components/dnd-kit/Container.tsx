@@ -18,6 +18,8 @@ import Item from "./Item";
 import StudentDataGenerator from "./StudentDataGenerator";
 import TeacherNameInput from "./TeacherNameInput";
 import TeacherSelectInput from "./TeacherSelectInput";
+import SimpleSelectBox from "./SimpleSelectBox";
+import UserEditForm from "./UserEditForm";
 
 interface Item {
   id: string;
@@ -72,6 +74,7 @@ const Contaienr = () => {
   const [teacherName12, setTeacherName12] = useState('');
   const [teacherName13, setTeacherName13] = useState('');
   const [teacherName14, setTeacherName14] = useState('');
+
   useEffect(() => {
     const fetchTeachers = async () => {
       const response = await fetch('http://localhost/fetch_teachers.php');
@@ -80,9 +83,10 @@ const Contaienr = () => {
       // 各セレクトボックスの初期値を設定
       const initialSelections = {};
       data.forEach(teacher => {
-        initialSelections[teacher.id] = teacher.id; // 例：{ 1: 1, 2: 2, ... }
+        initialSelections[teacher.id] = teacher.name; // 例：{ 1: 1, 2: 2, ... }
       });
-      setSelectedTeacherIds(initialSelections);
+      console.log('initialSelections:',initialSelections);
+      console.log('setTeachers:',data);
     };
 
     fetchTeachers();
@@ -135,42 +139,14 @@ const Contaienr = () => {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
-      data.forEach(item => {
-        switch (item.position_label) {
-          case 'teacherName1':
-            setTeacherName1(item.name);
-            break;
-          case 'teacherName2':
-            setTeacherName2(item.name);
-            break;
-          case 'teacherName3':
-            setTeacherName3(item.name);
-            break;
-          case 'teacherName4':
-            setTeacherName4(item.name);
-            break;
-            case 'teacherName5':
-              setTeacherName5(item.name);
-              break;
-            case 'teacherName6':
-              setTeacherName6(item.name);
-              break;
-            case 'teacherName7':
-              setTeacherName7(item.name);
-              break;
-            case 'teacherName8':
-              setTeacherName8(item.name);
-              break;
-            case 'teacherName9':
-              setTeacherName9(item.name);
-              break;
-          case 'teacherName10':
-            setTeacherName10(item.name);
-            break;
-          default:
-            // 何もしない
-        }
-      });
+      console.log('data:', data);
+
+    const newSelectedTeacherIds = {};
+  data.forEach(item => {
+    newSelectedTeacherIds[item.position_label] = item.name;
+  });
+  setSelectedTeacherIds(newSelectedTeacherIds);
+
     } catch (error) {
       console.error('Fetch error:', error);
     }
@@ -181,6 +157,11 @@ const Contaienr = () => {
    useEffect(() => {
     fetchTeacherPositions();
   }, []);
+
+  useEffect(() => {
+    console.log('SelectedTeacherIdsが更新されました:', selectedTeacherIds);
+  }, [selectedTeacherIds]);
+  
 
 
   const updateTeacherName = async (positionLabel, teacherId) => {
@@ -211,6 +192,9 @@ const Contaienr = () => {
       return {
         ...prev,
         container11: [...(prev.container11 || []), newStudent]  // prev.container16 が未定義の場合は空の配列を使用
+    
+    
+    
       };
     });
   };
@@ -386,7 +370,10 @@ const handleDragEnd = async (event: DragEndEvent) => {
 
 
 
-   
+   <SimpleSelectBox />
+   <UserEditForm />
+
+
 
 
       <DndContext
@@ -407,13 +394,17 @@ const handleDragEnd = async (event: DragEndEvent) => {
 
  {/* 最初のグループ */}
  <div className="flex flex-col items-center">
- <TeacherSelectInput
-        selectedTeacherId={teacherName1}
-        setSelectedTeacherId={setTeacherName1}
-        teachers={teachers}
-        positionLabel="teacherName1"
-        updateTeacherName={updateTeacherName}
-      />
+ {selectedTeacherIds['teacherName1'] !== undefined ? (
+    <TeacherSelectInput
+      selectedTeacherId={selectedTeacherIds['teacherName1']}
+      setSelectedTeacherId={(newId) => setSelectedTeacherIds({ ...selectedTeacherIds, 'teacherName1': newId })}
+      teachers={teachers}
+      positionLabel="teacherName1"
+      updateTeacherName={updateTeacherName}
+    />
+  ) : (
+    <div>ローディング...</div>
+  )}
 
   {/* 教師の名前とコンテナを包含する親要素 */}
   <div className="flex flex-row justify-center items-end">
