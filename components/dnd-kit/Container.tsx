@@ -183,21 +183,47 @@ const Contaienr = () => {
 
   
   
-
-
-
-  const handleAddStudent = (newStudent) => {
-    setItems(prev => {
-      // 新しい生徒を適切なコンテナ（例えば container11）に追加
-      return {
-        ...prev,
-        container11: [...(prev.container11 || []), newStudent]  // prev.container16 が未定義の場合は空の配列を使用
-    
-    
-    
-      };
-    });
+  const saveDataToDatabase = async (data) => {
+    try {
+      const response = await fetch('http://localhost/saveData.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+      });
+  
+      if (!response.ok) {
+        throw new Error('データの保存に失敗しました');
+      }
+  
+      // 保存が成功した場合の追加処理（必要に応じて）
+      console.log('データが正常に保存されました');
+    } catch (error) {
+      // エラー処理
+      console.error('データ保存エラー:', error);
+    }
   };
+  
+
+
+  const handleAddStudent = async (newStudent) => {
+    // 新しい状態を設定
+    setItems(prev => ({
+      ...prev,
+      container11: [...(prev.container11 || []), newStudent]
+    }));
+  
+    // 新しい状態をデータベースに保存
+    const updatedItems = {
+      ...items,
+      container11: [...(items.container11 || []), newStudent]
+    };
+  
+    await saveDataToDatabase(newStudent);
+    console.log('updatedItems:', updatedItems);
+  };
+  
   
 
   //  const [items, setItems] = useState<Items>(initialItems);
